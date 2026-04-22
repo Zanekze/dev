@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="license" content="This work is dedicated to the public domain under CC0 1.0 Universal.">
+  <title>CURSE DE ANDURANȚĂ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #E8001D;
+      --orange: #FF5C00;
+      --black: #080808;
+      --dark: #0F0F0F;
+      --mid: #1A1A1A;
+      --light: #EFEFEF;
+      --muted: #888;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--light);
+    }
+    .nav-logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.85rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--light); }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 6rem 3rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(232,0,29,0.12), transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(255,92,0,0.08), transparent 60%),
+        linear-gradient(160deg, #0d0d0d 0%, #080808 100%);
+    }
+    /* Animated speed lines */
+    .speed-lines {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .speed-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(232,0,29,0.4), transparent);
+      animation: streak linear infinite;
+      opacity: 0;
+    }
+    @keyframes streak {
+      0%   { transform: translateX(-100%); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateX(200%); opacity: 0; }
+    }
+
+    .hero-eyebrow {
+      position: relative;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-title {
+      position: relative;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: var(--light);
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero-title .accent { color: var(--red); }
+    .hero-subtitle {
+      position: relative;
+      max-width: 500px;
+      font-size: 1rem; font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 1.5rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-cta {
+      position: relative;
+      display: flex; gap: 1rem; align-items: center;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      background: var(--red); color: #fff;
+      border: none; cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--orange); transform: translateY(-2px); }
+    .btn-ghost {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600; font-size: 0.85rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); background: none; border: none;
+      cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--light); }
+    .btn-ghost::after { content: '→'; font-size: 1.1rem; }
+
+    .hero-stat-strip {
+      position: relative;
+      display: flex; gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .hero-stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; color: var(--light); letter-spacing: 0.05em;
+    }
+    .hero-stat-value span { color: var(--red); }
+    .hero-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.1rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- TICKER ---- */
+    .ticker-wrap {
+      background: var(--red);
+      padding: 0.7rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-inner span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: #fff;
+      margin: 0 2.5rem;
+    }
+    .ticker-inner span::before { content: '◆  '; font-size: 0.5rem; vertical-align: middle; }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ---- SECTION SHARED ---- */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1; letter-spacing: 0.02em;
+      color: var(--light);
+    }
+
+    /* ---- ABOUT ---- */
+    .about { background: var(--dark); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .about-text p {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: var(--muted); margin-top: 1.5rem;
+    }
+    .about-text p + p { margin-top: 1rem; }
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: var(--mid);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    }
+    .pillars { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 0; }
+    .pillar { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .pillar-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem; color: var(--red);
+      line-height: 1; min-width: 2rem;
+    }
+    .pillar-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--light);
+    }
+    .pillar-desc {
+      font-size: 0.85rem; color: var(--muted);
+      line-height: 1.6; margin-top: 0.25rem;
+    }
+
+    /* ---- DISCIPLINES ---- */
+    .disciplines { background: var(--black); }
+    .disciplines-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      margin-top: 3.5rem;
+      max-width: 1200px; margin-left: auto; margin-right: auto;
+    }
+    .discipline-card {
+      position: relative;
+      background: var(--mid);
+      padding: 2.5rem;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.3s;
+    }
+    .discipline-card:hover { background: #222; }
+    .discipline-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .discipline-card:hover::before { transform: scaleX(1); }
+    .discipline-icon {
+      font-size: 2rem; margin-bottom: 1rem;
+      display: block;
+    }
+    .discipline-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 0.05em;
+      color: var(--light);
+    }
+    .discipline-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); margin-top: 0.2rem;
+    }
+    .discipline-desc {
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.7; margin-top: 1rem;
+    }
+    .discipline-card.featured {
+      grid-column: span 2;
+      background: #161616;
+    }
+    .discipline-card a.discipline-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); text-decoration: none;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .discipline-card a.discipline-link:hover { color: var(--orange); gap: 0.7rem; }
+    .discipline-card a.discipline-link::after { content: '→'; }
+
+    /* ---- RACES ---- */
+    .races { background: var(--dark); }
+    .races-inner { max-width: 1200px; margin: 0 auto; }
+    .races-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .race-list { display: flex; flex-direction: column; gap: 0; }
+    .race-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto auto;
+      align-items: center; gap: 2rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.2s;
+      cursor: default;
+      text-decoration: none; color: inherit;
+    }
+    a.race-item:hover { background: rgba(255,255,255,0.02); }
+    a.race-item .race-name { transition: color 0.2s; }
+    a.race-item:hover .race-name { color: var(--red); }
+    .race-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; color: rgba(255,255,255,0.08);
+      line-height: 1;
+    }
+    .race-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--light);
+    }
+    .race-meta {
+      font-size: 0.82rem; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .race-duration {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .race-status {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+    }
+    .status-upcoming { color: var(--orange); border: 1px solid rgba(255,92,0,0.3); background: rgba(255,92,0,0.05); }
+    .status-live     { color: #00e676; border: 1px solid rgba(0,230,118,0.3); background: rgba(0,230,118,0.05); animation: pulse 1.5s ease infinite; }
+    .status-past     { color: var(--muted); border: 1px solid rgba(136,136,136,0.2); }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.6; }
+    }
+
+    /* ---- TEAM ---- */
+    .team { background: var(--black); }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5px; margin-top: 3.5rem;
+      max-width: 1200px; margin-left: auto; margin-right: auto;
+    }
+    .team-card {
+      position: relative; overflow: hidden;
+      background: var(--mid);
+      aspect-ratio: 3/4;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.5rem;
+      cursor: default;
+    }
+    .team-card-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7rem;
+      opacity: 0.06;
+      transition: opacity 0.3s, transform 0.4s;
+    }
+    .team-card:hover .team-card-bg { opacity: 0.1; transform: scale(1.1); }
+    .team-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    }
+    .team-info { position: relative; z-index: 1; }
+    .team-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--light);
+    }
+    .team-role {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); margin-top: 0.15rem;
+    }
+    .team-detail {
+      font-size: 0.8rem; color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ---- GALLERY ---- */
+    .gallery { background: var(--dark); overflow: hidden; padding: 4rem 0; }
+    .gallery-label { padding: 0 3rem; }
+    .gallery-scroll {
+      display: flex; gap: 1.5px;
+      margin-top: 2.5rem;
+      animation: scrollGallery 40s linear infinite;
+      width: max-content;
+    }
+    .gallery-scroll:hover { animation-play-state: paused; }
+    @keyframes scrollGallery {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .gallery-item {
+      width: 300px; height: 200px;
+      background: var(--mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      color: rgba(255,255,255,0.05);
+      flex-shrink: 0;
+      overflow: hidden; position: relative;
+    }
+    .gallery-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.8rem 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---- CTA BAND ---- */
+    .cta-band {
+      background: var(--red);
+      padding: 5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 3rem; flex-wrap: wrap;
+    }
+    .cta-text .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+    .cta-text .cta-sub {
+      font-size: 0.95rem; font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.5rem;
+    }
+    .btn-white {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      background: #fff; color: var(--red);
+      border: none; cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-3px); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--black);
+      padding: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 2rem; flex-wrap: wrap;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.12em;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-nav { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--light); }
+    .footer-copy {
+      font-size: 0.78rem; color: rgba(136,136,136,0.5);
+    }
+
+    /* ---- HAMBURGER / MOBILE NAV ---- */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 2.2rem; height: 2.2rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+      z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block; width: 100%; height: 2px;
+      background: var(--light);
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed; inset: 0; z-index: 150;
+      background: rgba(8,8,8,0.97);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: all; }
+    .mobile-nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; letter-spacing: 0.08em;
+      color: var(--light); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--red); }
+    .mobile-nav-close {
+      position: absolute; top: 1.2rem; right: 1.4rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      transition: color 0.2s;
+    }
+    .mobile-nav-close:hover { color: var(--light); }
+    .mobile-nav-close::before {
+      content: '✕';
+      font-size: 1rem;
+      font-style: normal;
+    }
+    .mobile-nav-footer {
+      position: absolute; bottom: 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---- TABLET (≤ 1024px) ---- */
+    @media (max-width: 1024px) {
+      .about-inner { gap: 3rem; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .disciplines-grid { grid-template-columns: repeat(2, 1fr); }
+      .discipline-card.featured { grid-column: span 2; }
+    }
+
+    /* ---- MOBILE PORTRAIT + LANDSCAPE (≤ 768px) ---- */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none !important; }
+      .nav-hamburger { display: flex; }
+      .mobile-nav { display: flex; }
+
+      /* Hero */
+      .hero { padding: 5rem 1.2rem 2.5rem; min-height: 100svh; }
+      .hero-stat-strip {
+        gap: 1.2rem; flex-wrap: wrap;
+        padding-top: 1.2rem; margin-top: 2rem;
+      }
+      .hero-stat-value { font-size: 1.8rem; }
+      .hero-cta { flex-wrap: wrap; gap: 0.8rem; }
+
+      /* Sections */
+      section { padding: 3.5rem 1.2rem; }
+      .gallery { padding: 3rem 0; }
+
+      /* About */
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* Disciplines */
+      .disciplines-grid { grid-template-columns: 1fr; }
+      .discipline-card.featured { grid-column: span 1; }
+
+      /* Races */
+      .race-item {
+        grid-template-columns: 44px 1fr auto;
+        gap: 0.8rem; padding: 1.2rem 0;
+      }
+      .race-num { font-size: 2rem; }
+      .race-duration { display: none; }
+      .race-name { font-size: 1rem; }
+      .race-status { font-size: 0.65rem; padding: 0.3rem 0.6rem; }
+
+      /* Team */
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* CTA */
+      .cta-band { padding: 3rem 1.2rem; flex-direction: column; align-items: flex-start; }
+
+      /* Footer */
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      .footer-nav { flex-wrap: wrap; gap: 1rem; }
+    }
+
+    /* ---- SMALL PHONES (≤ 480px) ---- */
+    @media (max-width: 480px) {
+      .hero-title { font-size: clamp(3.5rem, 18vw, 6rem); }
+      .hero-stat-strip { gap: 1rem; }
+      .hero-stat-value { font-size: 1.5rem; }
+      .section-title { font-size: clamp(2rem, 10vw, 3rem); }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .about-card { padding: 1.8rem; }
+      .race-item { grid-template-columns: 36px 1fr auto; gap: 0.6rem; }
+      .race-name { font-size: 0.88rem; }
+      .race-meta { font-size: 0.72rem; }
+    }
+
+    /* ---- LANDSCAPE PHONE (short + wide, e.g. rotated phone) ---- */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero {
+        min-height: 100svh;
+        padding: 4rem 2rem 1.5rem;
+        justify-content: center;
+      }
+      .hero-title { font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; }
+      .hero-subtitle { display: none; }
+      .hero-stat-strip { display: none; }
+      .hero-cta { margin-top: 1.2rem; }
+      nav { padding: 0.7rem 1.5rem; }
+      section { padding: 2.5rem 2rem; }
+      .about-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .disciplines-grid { grid-template-columns: repeat(2, 1fr); }
+      .discipline-card.featured { grid-column: span 2; }
+      .team-grid { grid-template-columns: repeat(4, 1fr); }
+      .race-item { padding: 1rem 0; }
+      .mobile-nav a { font-size: 2.2rem; }
+    }
+
+    /* ---- LARGE DESKTOP (≥ 1400px) ---- */
+    @media (min-width: 1400px) {
+      nav { padding: 1.4rem 5rem; }
+      section { padding: 7rem 5rem; }
+      .hero { padding: 7rem 5rem; }
+      .gallery { padding: 5rem 0; }
+      .cta-band { padding: 6rem 5rem; }
+      footer { padding: 3.5rem 5rem; }
+    }
+
+    /* Touch: bigger tap targets on mobile */
+    @media (hover: none) {
+      .btn-primary, .btn-white { padding: 1rem 2rem; }
+      .nav-links a, .footer-nav a { padding: 0.4rem 0; }
+      .race-item { padding: 1.4rem 0; }
+      a.discipline-link { padding: 0.6rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Închide meniul">Închide</button>
+  <a href="#about"       onclick="closeMobileNav()">Despre Noi</a>
+  <a href="#disciplines" onclick="closeMobileNav()">Discipline</a>
+  <a href="#races"       onclick="closeMobileNav()">Curse</a>
+  <a href="#team"        onclick="closeMobileNav()">Echipă</a>
+  <a href="#contact"     onclick="closeMobileNav()">Contact</a>
+  <div class="mobile-nav-footer">FIA WEC · Curse de Anduranță</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ENDUR<span>A</span>NCE</div>
+  <ul class="nav-links">
+    <li><a href="#about">Despre Noi</a></li>
+    <li><a href="#disciplines">Discipline</a></li>
+    <li><a href="#races">Curse</a></li>
+    <li><a href="#team">Echipă</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Deschide meniul" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="speed-lines" id="speedLines"></div>
+
+  <div class="hero-eyebrow">Înf. 1986 · Excelență în Motorsport</div>
+  <h1 class="hero-title">CURSE DE<br><span class="accent">A</span>NDURANȚĂ</h1>
+  <p class="hero-subtitle">Acolo unde limitele umane se dizolvă și mașinile devin legende. Concurând la limita posibilului, tur după tur, oră după oră.</p>
+
+  <div class="hero-cta">
+    <a href="#races" class="btn-primary">Vezi Calendarul de Curse</a>
+    <a href="#about" class="btn-ghost">Povestea Noastră</a>
+  </div>
+
+  <div class="hero-stat-strip">
+    <div>
+      <div class="hero-stat-value">24<span>H</span></div>
+      <div class="hero-stat-label">Durata Maximă a Cursei</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">312<span>+</span></div>
+      <div class="hero-stat-label">Curse Finalizate</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">47<span>×</span></div>
+      <div class="hero-stat-label">Titluri de Campionat</div>
+    </div>
+    <div>
+      <div class="hero-stat-value">6</div>
+      <div class="hero-stat-label">Continente Parcurse</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="tickerInner">
+    <span>6 Hours of Imola</span>
+    <span>6 Hours of Spa-Francorchamps</span>
+    <span>24 Hours of Le Mans</span>
+    <span>6 Hours of São Paulo</span>
+    <span>Lone Star Le Mans · COTA</span>
+    <span>6 Hours of Fuji</span>
+    <span>Qatar 1812km</span>
+    <span>8 Hours of Bahrain</span>
+    <span>6 Hours of Imola</span>
+    <span>6 Hours of Spa-Francorchamps</span>
+    <span>24 Hours of Le Mans</span>
+    <span>6 Hours of São Paulo</span>
+    <span>Lone Star Le Mans · COTA</span>
+    <span>6 Hours of Fuji</span>
+    <span>Qatar 1812km</span>
+    <span>8 Hours of Bahrain</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <p class="section-label">Cine Suntem</p>
+      <h2 class="section-title">CONSTRUIȚI PENTRU<br>DISTANȚĂ LUNGĂ</h2>
+      <p>Cursele de anduranță nu sunt despre un singur moment exploziv — ci despre precizie în timp, strategie sub presiune și voința neînduplecată de a merge înainte când fiecare sistem, fizic și mecanic, strigă să te oprești.</p>
+      <p>Suntem o organizație de curse care trăiește și respiră această filozofie. Fondată de piloți care au înțeles că adevăratul test al unei mașini — și al unui om — nu este un sprint, ci un maraton la viteză maximă.</p>
+      <p>De la GT endurance la curse prototip, echipele noastre concurează la nivel global la cel mai înalt nivel, susținute de inginerie de ultimă generație și o cultură construită integral în jurul performanței și rezilienței.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-card">
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <div>
+              <div class="pillar-title">Inginerie de Precizie</div>
+              <div class="pillar-desc">Fiecare componentă este reglată pentru performanță pe distanțe lungi. Nu construim mașini care să sprinteze — construim mașini care să supraviețuiască.</div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <div>
+              <div class="pillar-title">Dezvoltarea Pilotului</div>
+              <div class="pillar-desc">Cursele de anduranță cer un alt tip de atlet — disciplinat, concentrat și rezistent la oboseală extremă.</div>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <div>
+              <div class="pillar-title">Strategie de Cursă</div>
+              <div class="pillar-desc">Momentul pit-stop-ului, gestionarea anvelopelor, economia de combustibil. Câștigarea curselor lungi este șah la 300 km/h.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCIPLINES -->
+<section class="disciplines" id="disciplines">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-label">Ce Concurăm</p>
+    <h2 class="section-title">DISCIPLINE</h2>
+    <div class="disciplines-grid" style="margin-top:3rem;">
+      <div class="discipline-card featured">
+        <span class="discipline-icon">🏎</span>
+        <div class="discipline-name">Hypercar</div>
+        <div class="discipline-tagline">LMH · LMDh · 1000+ CP</div>
+        <p class="discipline-desc">Vârful curselor de anduranță. Mașinile Le Mans Hypercar (LMH) și Le Mans Daytona h (LMDh) reprezintă limita performanței. 14 producători se înfruntă de-a lungul sezonului FIA WEC, de la Le Mans până în Bahrain. Toyota, Ferrari, Porsche, BMW, Alpine — toți luptând pentru coroană.</p>
+        <a href="https://www.fiawec.com/en/page/le-wec-cest-quoi-1" target="_blank" rel="noopener" class="discipline-link">Vezi pe FIA WEC</a>
+      </div>
+      <div class="discipline-card">
+        <span class="discipline-icon">🔧</span>
+        <div class="discipline-name">LMGT3</div>
+        <div class="discipline-tagline">GT3 · Clasa Pro/Am</div>
+        <p class="discipline-desc">Supercaruri GT3 derivate din producție duse la limita mecanică. 18 mașini de la 9 producători în categoria Pro/Am — strategia și constanța câștigă aici.</p>
+        <a href="https://www.fiawec.com/en/page/grid" target="_blank" rel="noopener" class="discipline-link">Vezi Grila de Start</a>
+      </div>
+      <div class="discipline-card">
+        <span class="discipline-icon">🏔</span>
+        <div class="discipline-name">Anduranță Off-Road</div>
+        <div class="discipline-tagline">Raliuri · Curse în Deșert</div>
+        <p class="discipline-desc">Curse cross-country de tip Dakar prin cel mai aspru teren de pe pământ. Navigația se îmbină cu puterea brută pe mii de kilometri.</p>
+        <a href="https://www.fiawec.com/en/page/le-wec-cest-quoi-1" target="_blank" rel="noopener" class="discipline-link">Află Mai Multe</a>
+      </div>
+      <div class="discipline-card">
+        <span class="discipline-icon">⚡</span>
+        <div class="discipline-name">Tehnologie Hibridă</div>
+        <div class="discipline-tagline">Viitorul Anduranței</div>
+        <p class="discipline-desc">Grupurile motopropulsoare hibride de ultimă generație remodelează cursele de anduranță. Clasa Hypercar WEC impune sisteme hibride pentru intrările producătorilor, accelerând inovația pentru mașinile de stradă.</p>
+        <a href="https://www.fiawec.com/en/page/le-wec-cest-quoi-1" target="_blank" rel="noopener" class="discipline-link">Află Mai Multe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RACES -->
+<section class="races" id="races">
+  <div class="races-inner">
+    <div class="races-header">
+      <div>
+        <p class="section-label">Calendarul Sezonului</p>
+        <h2 class="section-title">CURSELE 2026</h2>
+      </div>
+      <a href="https://www.fiawec.com/en/page/calendar" target="_blank" rel="noopener" class="btn-ghost" style="color:var(--muted)">Program Complet</a>
+    </div>
+    <div class="race-list">
+      <a href="https://www.fiawec.com/en/race/6-hours-of-imola-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">01</div>
+        <div>
+          <div class="race-name">6 Ore de Imola</div>
+          <div class="race-meta">Autodromo Enzo e Dino Ferrari · Imola, Italia · 17–19 Apr</div>
+        </div>
+        <div class="race-duration">6H</div>
+        <div class="race-status status-past">Finalizată ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/totalenergies-6-hours-of-spa-francorchamps-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">02</div>
+        <div>
+          <div class="race-name">TotalEnergies 6 Ore de Spa-Francorchamps</div>
+          <div class="race-meta">Circuit de Spa-Francorchamps · Belgia · 7–9 Mai</div>
+        </div>
+        <div class="race-duration">6H</div>
+        <div class="race-status status-upcoming">9 Mai ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/24-hours-of-le-mans-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">03</div>
+        <div>
+          <div class="race-name">24 de Ore de la Le Mans</div>
+          <div class="race-meta">Circuit de la Sarthe · Le Mans, Franța · 11–14 Iun</div>
+        </div>
+        <div class="race-duration">24H</div>
+        <div class="race-status status-upcoming">14 Iun ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/rolex-6-hours-of-sao-paulo-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">04</div>
+        <div>
+          <div class="race-name">Rolex 6 Ore de São Paulo</div>
+          <div class="race-meta">Autódromo José Carlos Pace · São Paulo, Brazilia · 10–12 Iul</div>
+        </div>
+        <div class="race-duration">6H</div>
+        <div class="race-status status-upcoming">12 Iul ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/lone-star-le-mans-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">05</div>
+        <div>
+          <div class="race-name">Lone Star Le Mans</div>
+          <div class="race-meta">Circuit of the Americas · Austin, SUA · 4–6 Sep</div>
+        </div>
+        <div class="race-duration">6H</div>
+        <div class="race-status status-upcoming">6 Sep ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/6-hours-of-fuji-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">06</div>
+        <div>
+          <div class="race-name">6 Ore de Fuji</div>
+          <div class="race-meta">Fuji International Speedway · Japonia · 25–27 Sep</div>
+        </div>
+        <div class="race-duration">6H</div>
+        <div class="race-status status-upcoming">27 Sep ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/qatar-1812km-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">07</div>
+        <div>
+          <div class="race-name">Qatar 1812km</div>
+          <div class="race-meta">Lusail International Circuit · Qatar · 22–24 Oct</div>
+        </div>
+        <div class="race-duration">1812km</div>
+        <div class="race-status status-upcoming">24 Oct ↗</div>
+      </a>
+      <a href="https://www.fiawec.com/en/race/bapco-energies-8-hours-of-bahrain-2026" target="_blank" rel="noopener" class="race-item">
+        <div class="race-num">08</div>
+        <div>
+          <div class="race-name">Bapco Energies 8 Ore de Bahrain</div>
+          <div class="race-meta">Bahrain International Circuit · Bahrain · 5–7 Nov</div>
+        </div>
+        <div class="race-duration">8H</div>
+        <div class="race-status status-upcoming">7 Nov ↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-label">Oamenii Noștri</p>
+    <h2 class="section-title">ECHIPA NOASTRĂ</h2>
+    <div class="team-grid" style="margin-top:3rem;">
+      <div class="team-card">
+        <div class="team-card-bg">🏎</div>
+        <div class="team-info">
+          <div class="team-name">Marco Delacroix</div>
+          <div class="team-role">Pilot Principal · LMP1</div>
+          <div class="team-detail">3× câștigător Le Mans · 14 sezoane</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-bg">🔩</div>
+        <div class="team-info">
+          <div class="team-name">Yuki Tanaka</div>
+          <div class="team-role">Pilot · Clasa GTE</div>
+          <div class="team-detail">Fost campion F2 · 6 sezoane</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-bg">⚙️</div>
+        <div class="team-info">
+          <div class="team-name">Sofia Reinhart</div>
+          <div class="team-role">Inginer Șef</div>
+          <div class="team-detail">Aerodinamică · 18 ani experiență</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-bg">📡</div>
+        <div class="team-info">
+          <div class="team-name">Luca Ferretti</div>
+          <div class="team-role">Strateg de Cursă</div>
+          <div class="team-detail">Analiză de date · Specialist pit-stop</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <p class="section-label gallery-label">Pe Teren</p>
+  <div class="gallery-scroll" id="galleryScroll">
+    <div class="gallery-item" style="background:#1a1212;">🏁<div class="gallery-item-label">Start Le Mans · 2024</div></div>
+    <div class="gallery-item" style="background:#121a12;">🌧<div class="gallery-item-label">Tur de Noapte Nürburgring</div></div>
+    <div class="gallery-item" style="background:#12121a;">🔧<div class="gallery-item-label">Antrenament Pit Stop</div></div>
+    <div class="gallery-item" style="background:#1a1a12;">🏎<div class="gallery-item-label">Calificări Spa</div></div>
+    <div class="gallery-item" style="background:#1a1218;">🌅<div class="gallery-item-label">Zorii de la Daytona</div></div>
+    <div class="gallery-item" style="background:#121818;">⚡<div class="gallery-item-label">Test Mașină Hibridă</div></div>
+    <div class="gallery-item" style="background:#1a1212;">🏁<div class="gallery-item-label">Start Le Mans · 2024</div></div>
+    <div class="gallery-item" style="background:#121a12;">🌧<div class="gallery-item-label">Tur de Noapte Nürburgring</div></div>
+    <div class="gallery-item" style="background:#12121a;">🔧<div class="gallery-item-label">Antrenament Pit Stop</div></div>
+    <div class="gallery-item" style="background:#1a1a12;">🏎<div class="gallery-item-label">Calificări Spa</div></div>
+    <div class="gallery-item" style="background:#1a1218;">🌅<div class="gallery-item-label">Zorii de la Daytona</div></div>
+    <div class="gallery-item" style="background:#121818;">⚡<div class="gallery-item-label">Test Mașină Hibridă</div></div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div class="cta-band" id="contact">
+  <div class="cta-text">
+    <div class="cta-title">ALĂTURĂ-TE GRILEI</div>
+    <div class="cta-sub">Sponsorizări, parteneriate și înregistrări pilot sunt binevenite.</div>
+  </div>
+  <button class="btn-white">Contactează-ne</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">CURSE DE <span>A</span>NDURANȚĂ</div>
+    <ul class="footer-nav">
+      <li><a href="#about">Despre Noi</a></li>
+      <li><a href="#disciplines">Discipline</a></li>
+      <li><a href="#races">Curse</a></li>
+      <li><a href="#team">Echipă</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Curse de Anduranță. Toate drepturile rezervate.</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav
+  function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    const btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMobileNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Generate speed lines
+  const container = document.getElementById('speedLines');
+  for (let i = 0; i < 18; i++) {
+    const line = document.createElement('div');
+    line.className = 'speed-line';
+    const topPct = Math.random() * 100;
+    const width = 150 + Math.random() * 300;
+    const duration = 2.5 + Math.random() * 4;
+    const delay = Math.random() * 6;
+    line.style.cssText = `
+      top: ${topPct}%;
+      width: ${width}px;
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+    `;
+    container.appendChild(line);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.discipline-card, .race-item, .team-card, .pillar').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(25px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
